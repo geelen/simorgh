@@ -13,7 +13,7 @@
     "build:test": "cp envConfig/test.env .env && NODE_ENV=production webpack",
     "build:fab": "FAB_BUILD=true npm run build && npm run fab:compile",
     "prefab:compile": "touch build/public/index.html",
-    "fab:compile": "fab-static build/public --server=src/server/index.jsx",
+    "fab:compile": "fab-static build/public --server=src/server/fab-server.js",
     "cypress": "cypress run",
     "cypress:ci": "xvfb-run -a cypress run",
     "cypress:interactive": "cypress open",
