@@ -130,7 +130,7 @@
     "@bbc/apache2-license-checker": "^1.1.4",
     "@bbc/psammead-storybook-helpers": "^6.0.3",
     "@bbc/psammead-test-helpers": "^3.1.1",
-    "@fab/compile": "^0.3.1",
+    "@fab/static": "^0.1.8",
     "@loadable/babel-plugin": "^5.10.3",
     "@storybook/addon-knobs": "^5.2.3",
     "@storybook/react": "^5.2.4",
