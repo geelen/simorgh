@@ -12,14 +12,14 @@ const services = Object.keys(cypressServiceConfigs);
 const { MIN_SIZE, MAX_SIZE } = require('./bundleSizeConfig');
 
 const jsFiles = fs
-  .readdirSync('build/public/static/js')
+  .readdirSync('build/public/_assets/js')
   .filter(fileName => fileName.endsWith('.js'));
 
 const getFileSize = filePath => fs.statSync(filePath).size;
 const getTotalSizeOfFilesBeginningWith = string => {
   const sizeInBytes = jsFiles
     .filter(fileName => fileName.startsWith(string))
-    .map(fileName => getFileSize(`build/public/static/js/${fileName}`))
+    .map(fileName => getFileSize(`build/public/_assets/js/${fileName}`))
     .reduce((totalKB, fileSizeInKB) => totalKB + fileSizeInKB, 0);
   return Math.round(sizeInBytes / 1000);
 };
