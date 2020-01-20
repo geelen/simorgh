@@ -1,9 +1,23 @@
 import config from '../../../support/config/services';
 import appConfig from '../../../../src/server/utilities/serviceConfigs';
 
-const getParagraphText = blocks =>
-  blocks.find(el => el.type === 'paragraph' && el.markupType === 'plain_text')
-    .text;
+const getParagraphText = blocks => {
+  const textReplacements = {
+    '&quot;': '"',
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+  };
+
+  const replacementsRegex = new RegExp(
+    Object.keys(textReplacements).join('|'),
+    'gi',
+  );
+
+  return blocks
+    .find(el => el.type === 'paragraph' && el.markupType === 'plain_text')
+    .text.replace(replacementsRegex, match => textReplacements[match]);
+};
 
 // For testing important features that differ between services, e.g. Timestamps.
 // We recommend using inline conditional logic to limit tests to services which differ.
@@ -12,7 +26,11 @@ export const testsThatAlwaysRun = ({ service, pageType }) => {
 };
 
 // For testing features that may differ across services but share a common logic e.g. translated strings.
-export const testsThatFollowSmokeTestConfig = ({ service, pageType }) => {
+export const testsThatFollowSmokeTestConfig = ({
+  service,
+  pageType,
+  variant,
+}) => {
   describe(`testsThatFollowSmokeTestConfig to run for ${service} ${pageType}`, () => {
     it('should render a H1, which contains/displays a styled headline', () => {
       cy.request(`${config[service].pageTypes[pageType].path}.json`).then(
@@ -36,6 +54,9 @@ export const testsThatFollowSmokeTestConfig = ({ service, pageType }) => {
       cy.request(`${config[service].pageTypes[pageType].path}.json`).then(
         ({ body }) => {
           const { lastPublished, firstPublished } = body.metadata;
+          const timeDifferenceMinutes =
+            (lastPublished - firstPublished) / 1000 / 60;
+          const minutesTolerance = 1;
           cy.get('time')
             .eq(0)
             .should('exist')
@@ -43,13 +64,35 @@ export const testsThatFollowSmokeTestConfig = ({ service, pageType }) => {
             .should('have.attr', 'datetime')
             .should('not.be.empty');
 
-          if (lastPublished !== firstPublished) {
+          if (timeDifferenceMinutes > minutesTolerance) {
             cy.get('time')
               .eq(1)
               .should(
                 'contain',
-                appConfig[service].default.articleTimestampPrefix,
+                appConfig[config[service].name][variant].articleTimestampPrefix,
               );
+          }
+        },
+      );
+    });
+
+    it('should have href that matches assetURI for 1st related content link', () => {
+      cy.request(`${config[service].pageTypes[pageType].path}.json`).then(
+        ({ body }) => {
+          const numRelatedContentGroups = body.relatedContent.groups.length;
+
+          if (numRelatedContentGroups > 0) {
+            const assetURI =
+              body.relatedContent.groups[0].promos[0].locators.assetUri;
+            cy.get(
+              'li[class^="StoryPromoLi"] > div[class^="StoryPromoWrapper"]',
+            )
+              .find('h3')
+              .within(() => {
+                cy.get('a')
+                  .should('have.attr', 'href')
+                  .and('include', assetURI);
+              });
           }
         },
       );

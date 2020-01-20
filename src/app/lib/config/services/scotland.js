@@ -47,6 +47,7 @@ export const service = {
     swPath: '/articles/sw.js',
     frontPageTitle: 'Home',
     passportHomes: ['BBCScotland'],
+    hasRadioSchedule: false,
     theming: {
       brandBackgroundColour: `${C_DARK_SALTIRE}`,
       brandLogoColour: `${C_WHITE}`,
@@ -145,6 +146,12 @@ export const service = {
         audio: 'Audio',
         photogallery: 'Image gallery',
         video: 'Video',
+        listen: 'Listen',
+        watch: 'Watch',
+        liveLabel: 'LIVE',
+        previousRadioShow: 'Previous radio show',
+        nextRadioShow: 'Next radio show',
+        duration: 'Duration',
       },
     },
     brandSVG,
@@ -153,7 +160,6 @@ export const service = {
       lastUpdated: 'Last updated: ',
     },
     footer: {
-      trustProjectLink: {},
       externalLink: {
         href: 'https://www.bbc.co.uk/help/web/links/',
         text: 'Read about our approach to external linking.',

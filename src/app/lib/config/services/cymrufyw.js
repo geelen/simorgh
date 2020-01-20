@@ -47,6 +47,7 @@ export const service = {
     manifestPath: '/articles/manifest.json',
     swPath: '/articles/sw.js',
     frontPageTitle: 'Newyddion a mwy',
+    hasRadioSchedule: false,
     theming: {
       brandBackgroundColour: `${C_POSTBOX}`,
       brandLogoColour: `${C_WHITE}`,
@@ -146,6 +147,12 @@ export const service = {
         audio: 'Sain',
         photogallery: 'Oriel luniau',
         video: 'Fideo',
+        listen: 'Listen',
+        watch: 'Gwylio',
+        liveLabel: 'LIVE',
+        previousRadioShow: 'Previous radio show',
+        nextRadioShow: 'Next radio show',
+        duration: 'Duration',
       },
     },
     brandSVG,
@@ -163,10 +170,6 @@ export const service = {
         text: "Sut ry'n ni'n defnyddio dolenni allanol.",
       },
       links: [
-        {
-          href: 'https://www.bbc.com/news/help-41670342',
-          text: 'Pam y gallwch ymddiried yn BBC Cymru Fyw',
-        },
         {
           href: 'https://www.bbc.com/usingthebbc/terms/cy/',
           text: 'Telerau Defnyddio',
@@ -234,6 +237,7 @@ export const service = {
         url: '/news/wales',
       },
     ],
+    navigationSection: 'Adrannau',
   },
 };
 

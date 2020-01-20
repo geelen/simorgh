@@ -25,7 +25,7 @@ export const service = {
     defaultCaptionOffscreenText: 'Keterangan, ',
     imageCopyrightOffscreenText: 'Sumber gambar, ',
     locale: `id-ID`,
-    datetimeLocale: `id-id`,
+    datetimeLocale: `id`,
     service: 'indonesia',
     serviceName: 'Indonesia',
     themeColor: `${C_POSTBOX}`,
@@ -38,6 +38,7 @@ export const service = {
     manifestPath: '/manifest.json',
     swPath: '/sw.js',
     frontPageTitle: 'Berita',
+    hasRadioSchedule: false,
     theming: {
       brandBackgroundColour: `${C_POSTBOX}`,
       brandLogoColour: `${C_WHITE}`,
@@ -137,6 +138,12 @@ export const service = {
         audio: 'Audio',
         photogallery: 'Galeri Foto',
         video: 'Video',
+        listen: 'Listen',
+        watch: 'Watch',
+        liveLabel: 'LANGSUNG',
+        previousRadioShow: 'Previous radio show',
+        nextRadioShow: 'Next radio show',
+        duration: 'Duration',
       },
     },
     brandSVG,
@@ -146,7 +153,7 @@ export const service = {
     },
     footer: {
       trustProjectLink: {
-        href: 'https://www.bbc.com/indonesia/institutional-49283175',
+        href: 'https://www.bbc.com/news/help-41670342',
         text: 'Alasan Anda dapat mempercayai BBC News',
       },
       externalLink: {
@@ -155,10 +162,6 @@ export const service = {
         text: 'Baca tentang peraturan baru terkait link eksternal.',
       },
       links: [
-        {
-          href: 'https://www.bbc.com/indonesia/institutional-49283175',
-          text: 'Alasan Anda dapat mempercayai BBC News',
-        },
         {
           href: 'https://www.bbc.com/indonesia/institutional-37818421',
           text: 'Peraturan Penggunaan',
@@ -234,6 +237,7 @@ export const service = {
         url: '/indonesia/bahasa_inggris',
       },
     ],
+    navigationSection: 'Kategori',
     timezone: 'Asia/Jakarta',
   },
 };

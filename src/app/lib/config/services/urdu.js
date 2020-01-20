@@ -43,6 +43,7 @@ export const service = {
     swPath: '/sw.js',
     frontPageTitle:
       'خبریں، تازہ خبریں، بریکنگ نیو | News, latest news, breaking news',
+    hasRadioSchedule: true,
     theming: {
       brandBackgroundColour: `${C_POSTBOX}`,
       brandLogoColour: `${C_WHITE}`,
@@ -139,6 +140,12 @@ export const service = {
         audio: 'آڈیو',
         photogallery: 'تصاویری گیلری',
         video: 'ویڈیو',
+        listen: 'Listen',
+        watch: 'Watch',
+        liveLabel: 'لائیو',
+        previousRadioShow: 'Previous radio show',
+        nextRadioShow: 'Next radio show',
+        duration: 'Duration',
       },
     },
     brandSVG,
@@ -148,7 +155,7 @@ export const service = {
     },
     footer: {
       trustProjectLink: {
-        href: 'https://www.bbc.com/urdu/institutional-49282935',
+        href: 'https://www.bbc.com/news/help-41670342',
         text: 'جانیے کہ آپ بی بی سی نیوز پر کیوں اعتماد کر سکتے ہیں',
       },
       externalLink: {
@@ -156,10 +163,6 @@ export const service = {
         text: 'بیرونی لنکس کے بارے میں ہماری پالیسی.',
       },
       links: [
-        {
-          href: 'https://www.bbc.com/urdu/institutional-49282935',
-          text: 'جانیے کہ آپ بی بی سی نیوز پر کیوں اعتماد کر سکتے ہیں',
-        },
         {
           href: 'https://www.bbc.com/urdu/institutional-37588278',
           text: 'استعمال کے ضوابط',
@@ -233,6 +236,7 @@ export const service = {
         url: '/urdu/media/photogalleries',
       },
     ],
+    navigationSection: 'سیکشن',
   },
 };
 

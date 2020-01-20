@@ -38,6 +38,7 @@ export const service = {
     manifestPath: '/manifest.json',
     swPath: '/sw.js',
     frontPageTitle: 'Xəbərlər, Qaynar Xəbərlər, Analiz, Video',
+    hasRadioSchedule: false,
     theming: {
       brandBackgroundColour: `${C_POSTBOX}`,
       brandLogoColour: `${C_WHITE}`,
@@ -137,6 +138,12 @@ export const service = {
         audio: 'Audio',
         photogallery: 'Foto-qalereya',
         video: 'Video',
+        listen: 'Listen',
+        watch: 'İzləyin',
+        liveLabel: 'CANLI',
+        previousRadioShow: 'Previous radio show',
+        nextRadioShow: 'Next radio show',
+        duration: 'Duration',
       },
     },
     brandSVG,
@@ -146,7 +153,7 @@ export const service = {
     },
     footer: {
       trustProjectLink: {
-        href: 'https://www.bbc.com/azeri/institutional-49283479',
+        href: 'https://www.bbc.com/news/help-41670342',
         text: 'BBC News-a niyə etibar etməlisiniz',
       },
       externalLink: {
@@ -154,10 +161,6 @@ export const service = {
         text: 'Bizim kənar keçidlərə dair yanaşmamız barədə oxuyun.',
       },
       links: [
-        {
-          href: 'https://www.bbc.com/azeri/institutional-49283479',
-          text: 'BBC News-a niyə etibar etməlisiniz',
-        },
         {
           href: 'https://www.bbc.com/azeri/institutional-37131047',
           text: 'İstifadə qaydaları',
@@ -214,6 +217,7 @@ export const service = {
         url: '/azeri/media/video',
       },
     ],
+    navigationSection: 'Bölümlər',
   },
 };
 

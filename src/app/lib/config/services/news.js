@@ -46,6 +46,7 @@ export const service = {
     manifestPath: '/articles/manifest.json',
     swPath: '/articles/sw.js',
     frontPageTitle: 'Home',
+    hasRadioSchedule: false,
     theming: {
       brandBackgroundColour: `${C_POSTBOX}`,
       brandLogoColour: `${C_WHITE}`,
@@ -144,6 +145,12 @@ export const service = {
         audio: 'Audio',
         photogallery: 'Image gallery',
         video: 'Video',
+        listen: 'Listen',
+        watch: 'Watch',
+        liveLabel: 'LIVE',
+        previousRadioShow: 'Previous radio show',
+        nextRadioShow: 'Next radio show',
+        duration: 'Duration',
       },
     },
     brandSVG,
@@ -161,10 +168,6 @@ export const service = {
         text: 'Read about our approach to external linking.',
       },
       links: [
-        {
-          href: 'https://www.bbc.com/news/help-41670342',
-          text: 'Why you can trust the BBC',
-        },
         {
           href: 'https://www.bbc.com/terms',
           text: 'Terms of Use',
@@ -227,7 +230,32 @@ export const service = {
         title: 'Tech',
         url: '/news/technology',
       },
+      {
+        title: 'Science',
+        url: '/news/science_and_environment',
+      },
+      {
+        title: 'Health',
+        url: '/news/health',
+      },
+      {
+        title: 'Family & Education',
+        url: '/news/education',
+      },
+      {
+        title: 'Entertainment & Arts',
+        url: '/news/entertainment_and_arts',
+      },
+      {
+        title: 'Stories',
+        url: '/news/stories',
+      },
+      {
+        title: 'Video & Audio',
+        url: '/news/video_and_audio/headlines',
+      },
     ],
+    navigationSection: 'Sections',
   },
 };
 

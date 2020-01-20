@@ -36,10 +36,10 @@ module.exports = {
           '/.storybook/**',
           '**/stories.jsx',
           '/src/testHelpers/**',
-          '/dataValidator/**',
         ],
       },
     ],
+    "import/extensions": [1, { "json": "ignorePackages" }]
   },
   settings: {
     'import/resolver': {

@@ -44,6 +44,7 @@ export const service = {
     manifestPath: '/manifest.json',
     swPath: '/sw.js',
     frontPageTitle: 'صفحه اول',
+    hasRadioSchedule: true,
     theming: {
       brandBackgroundColour: `${C_POSTBOX}`,
       brandLogoColour: `${C_WHITE}`,
@@ -160,6 +161,12 @@ export const service = {
           subtitle:
             'برنامه خبری-تحلیلی یک ساعته که تصویری روشن و ساده از رویدادهای پیچیده جهان ارائه می‌کند.',
         },
+        listen: 'Listen',
+        watch: 'تماشا کنید',
+        liveLabel: 'زنده',
+        previousRadioShow: 'Previous radio show',
+        nextRadioShow: 'Next radio show',
+        duration: 'Duration',
       },
     },
     brandSVG,
@@ -177,10 +184,6 @@ export const service = {
         text: 'سیاست ما درباره لینک دادن به سایت های دیگر.',
       },
       links: [
-        {
-          href: 'https://www.bbc.com/news/help-41670342',
-          text: 'چرا می‌توانید به بی‌بی‌سی اطمینان کنید؟',
-        },
         {
           href: 'https://www.bbc.com/persian/institutional-37474133',
           text: 'شرایط استفاده',
@@ -280,6 +283,7 @@ export const service = {
         url: '/persian/learningenglish',
       },
     ],
+    navigationSection: 'صفحه ها',
   },
 };
 
