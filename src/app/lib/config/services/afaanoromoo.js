@@ -39,6 +39,7 @@ export const service = {
     manifestPath: '/manifest.json',
     swPath: '/sw.js',
     frontPageTitle: 'Oduu',
+    hasRadioSchedule: false,
     theming: {
       brandBackgroundColour: `${C_POSTBOX}`,
       brandLogoColour: `${C_WHITE}`,
@@ -138,6 +139,12 @@ export const service = {
         audio: 'Sagalee',
         photogallery: 'Kuusaa suuraa',
         video: 'Viidiyoo',
+        listen: 'Dhaggeeffadhaa',
+        watch: 'Daawwadhu',
+        liveLabel: 'JIRADHU',
+        previousRadioShow: 'Previous radio show',
+        nextRadioShow: 'Next radio show',
+        duration: 'Duration',
       },
     },
     brandSVG,
@@ -147,7 +154,7 @@ export const service = {
     },
     footer: {
       trustProjectLink: {
-        href: 'https://www.bbc.com/afaanoromoo/institutional-49281861',
+        href: 'https://www.bbc.com/news/help-41670342',
         text: 'BBC News maaliif amanuu dandeessa',
       },
       externalLink: {
@@ -155,10 +162,6 @@ export const service = {
         text: 'Gara geessituu alaatti akkaataa itti hojjennu dubbisi.',
       },
       links: [
-        {
-          href: 'https://www.bbc.com/afaanoromoo/institutional-49281861',
-          text: 'BBC News maaliif amanuu dandeessa',
-        },
         {
           href: 'https://www.bbc.co.uk/usingthebbc/terms/',
           text: 'Haala itti fayyadamaa',
@@ -202,6 +205,7 @@ export const service = {
         url: '/afaanoromoo/popular/read',
       },
     ],
+    navigationSection: 'Kutaawwan',
     timezone: 'Africa/Addis_Ababa',
     liveRadio: {
       externalIdOverrides: { bbc_oromo_radio: 'bbc_afaanoromoo_radio' },

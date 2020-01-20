@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { renderRoutes } from 'react-router-config';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import path from 'ramda/src/path';
 import getRouteProps from '../../routes/getInitialData/utils/getRouteProps';
 import usePrevious from '#lib/utilities/usePrevious';
@@ -11,6 +11,7 @@ export const App = ({ routes, location, initialData, bbcOrigin, history }) => {
     isAmp,
     variant,
     id,
+    errorCode,
     route: { pageType },
   } = getRouteProps(routes, location.pathname);
 
@@ -26,9 +27,21 @@ export const App = ({ routes, location, initialData, bbcOrigin, history }) => {
     pageType,
     error,
     loading: false,
+    errorCode,
   });
 
   const isInitialMount = useRef(true);
+  const shouldSetFocus = useRef(false);
+
+  useEffect(() => {
+    if (shouldSetFocus.current) {
+      const contentEl = document.querySelector('h1#content');
+      if (contentEl) {
+        contentEl.focus();
+      }
+      shouldSetFocus.current = false;
+    }
+  }, [state.loading, state.pageData]);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -43,27 +56,42 @@ export const App = ({ routes, location, initialData, bbcOrigin, history }) => {
         route,
       } = getRouteProps(routes, location.pathname);
 
-      setState({
-        pageData: null,
-        status: null,
-        service: nextService,
-        variant: nextVariant,
-        id: nextId,
-        isAmp: nextIsAmp,
-        pageType: route.pageType,
-        loading: true,
-        error: null,
+      let loaderTimeout;
+      const loaderPromise = new Promise(resolve => {
+        loaderTimeout = setTimeout(resolve, 500);
       });
 
-      route.getInitialData(location.pathname).then(data =>
-        setState(prevState => ({
-          ...prevState,
+      loaderPromise.then(() => {
+        setState({
+          pageData: null,
+          status: null,
+          service: nextService,
+          variant: nextVariant,
+          id: nextId,
+          isAmp: nextIsAmp,
+          pageType: route.pageType,
+          loading: true,
+          error: null,
+          errorCode: null,
+        });
+      });
+
+      route.getInitialData(location.pathname).then(data => {
+        clearTimeout(loaderTimeout);
+        shouldSetFocus.current = true;
+        setState({
+          service: nextService,
+          variant: nextVariant,
+          id: nextId,
+          isAmp: nextIsAmp,
+          pageType: route.pageType,
           loading: false,
           pageData: path(['pageData'], data),
           status: path(['status'], data),
           error: path(['error'], data),
-        })),
-      );
+          errorCode: null,
+        });
+      });
     }
   }, [routes, location.pathname]);
 

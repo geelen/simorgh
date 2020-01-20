@@ -42,6 +42,7 @@ export const service = {
     themeColor: `${C_POSTBOX}`,
     twitterCreator: '@BBCNews', // to be updated
     twitterSite: '@BBCNews', // to be updated
+    hasRadioSchedule: false,
     theming: {
       brandBackgroundColour: `${C_POSTBOX}`,
       brandLogoColour: `${C_WHITE}`,
@@ -148,6 +149,12 @@ export const service = {
           title: 'Placeholder title',
           subtitle: 'Placeholder subtitle',
         },
+        listen: 'Gee ntị',
+        watch: 'Lee',
+        liveLabel: 'NA EME UGBU A',
+        previousRadioShow: 'Previous radio show',
+        nextRadioShow: 'Next radio show',
+        duration: 'Duration',
       },
     },
     mostRead: {
@@ -161,7 +168,7 @@ export const service = {
       },
       {
         title: 'Egwuregwu',
-        url: '/igbo/egwuregwu',
+        url: '/igbo/topics/4063f80f-cccc-44c8-9449-5ca44e4c8592',
       },
       {
         title: 'Ihe nkiri',
@@ -174,7 +181,7 @@ export const service = {
     ],
     footer: {
       trustProjectLink: {
-        href: 'https://www.bbc.com/igbo/institutional-48529074',
+        href: 'https://www.bbc.com/news/help-41670342',
         text: 'Ihe mere ị ga-eji nwee ntụkwasiobi na BBC News',
       },
       externalLink: {
@@ -182,10 +189,6 @@ export const service = {
         text: 'Usoro anyị maka njikọ dị na mpụga.',
       },
       links: [
-        {
-          href: 'https://www.bbc.com/igbo/institutional-48529074',
-          text: 'Ihe mere ị ga-eji nwee ntụkwasiobi na BBC News',
-        },
         {
           href: 'https://www.bbc.co.uk/usingthebbc/terms',
           text: 'Usoro Ojiji',
@@ -207,6 +210,7 @@ export const service = {
           text: 'Kpọtụrụ BBC',
         },
       ],
+      navigationSection: 'Ngalaba',
       copyrightText:
         'BBC. BBC anaghị ahụta maka ọdịnaya nke saịtị ndị dị na mpụga.',
     },

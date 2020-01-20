@@ -35,7 +35,7 @@ export const testsThatFollowSmokeTestConfig = ({
         cy.get('meta[name="article:author"]').should(
           'have.attr',
           'content',
-          appConfig[service][variant].articleAuthor,
+          appConfig[config[service].name][variant].articleAuthor,
         );
       });
 
@@ -122,16 +122,16 @@ export const testsThatFollowSmokeTestConfig = ({
 
               cy.get('figure')
                 .eq(0)
-                .then($fig => {
-                  if ($fig.find('p').length > 0) {
-                    cy.get('figure p')
-                      .eq(0)
-                      .should('contain', copyrightHolder);
-                  } else {
+                .within(() => {
+                  if (copyrightHolder === 'BBC') {
                     // If an image has a BBC copyright, the copyright holder (<p>) does not appear on images.
                     // This is why we're asserting the value. If the copyright does not appear and is not
                     // 'BBC' then it is clear there is an error with this component.
-                    expect(copyrightHolder).to.eq('BBC');
+                    cy.get('p[class^="Copyright"]').should('not.exist');
+                  } else {
+                    cy.get('p[class^="Copyright"]')
+                      .should('be.visible')
+                      .and('contain', copyrightHolder);
                   }
                 });
             },
@@ -149,11 +149,7 @@ export const testsThatFollowSmokeTestConfig = ({
         );
       });
 
-      if (
-        serviceHasInlineLink(service) &&
-        (Cypress.env('APP_ENV') === 'local' ||
-          Cypress.env('APP_ENV') === 'test')
-      ) {
+      if (serviceHasInlineLink(service) && Cypress.env('APP_ENV') === 'local') {
         it('should have an inlink link to an article page', () => {
           cy.get('[class^="InlineLink"]')
             .eq(1)
@@ -184,7 +180,10 @@ export const testsThatFollowSmokeTestConfig = ({
               if (lastPublished !== firstPublished) {
                 cy.get('time')
                   .eq(1)
-                  .should('contain', appConfig[service].articleTimestampPrefix);
+                  .should(
+                    'contain',
+                    appConfig[config[service].name].articleTimestampPrefix,
+                  );
               }
             },
           );

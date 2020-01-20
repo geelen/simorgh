@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { inputProvider } from '@bbc/psammead-storybook-helpers';
+import { BrowserRouter } from 'react-router-dom';
+import { withServicesKnob } from '@bbc/psammead-storybook-helpers';
 import { withKnobs } from '@storybook/addon-knobs';
 import WithTimeMachine from '#testHelpers/withTimeMachine';
 import { ServiceContextProvider } from '#contexts/ServiceContext';
@@ -41,31 +42,31 @@ const matchFixtures = service => ({
 storiesOf('Main|Radio Page', module)
   .addDecorator(story => <WithTimeMachine>{story()}</WithTimeMachine>)
   .addDecorator(withKnobs)
-  .add(
-    'default',
-    inputProvider({
-      // eslint-disable-next-line react/prop-types
-      componentFunction: ({ service }) => {
-        return (
-          <ToggleContextProvider>
-            <ServiceContextProvider service={service}>
-              <RequestContextProvider
-                isAmp={false}
-                pageType="media"
-                origin="https://www.bbc.com"
-                service={service}
-              >
-                <RadioPageMain
-                  pageData={liveRadioFixtures[service]}
-                  match={matchFixtures(service)}
-                  service={service}
-                />
-              </RequestContextProvider>
-            </ServiceContextProvider>
-          </ToggleContextProvider>
-        );
-      },
+  .addDecorator(
+    withServicesKnob({
+      defaultService: 'indonesia',
       services: validServices,
-      options: { defaultService: 'indonesia' },
     }),
-  );
+  )
+  .add('default', ({ service }) => {
+    return (
+      <ToggleContextProvider>
+        <ServiceContextProvider service={service}>
+          <RequestContextProvider
+            isAmp={false}
+            pageType="media"
+            origin="https://www.bbc.com"
+            service={service}
+          >
+            <BrowserRouter>
+              <RadioPageMain
+                pageData={liveRadioFixtures[service]}
+                match={matchFixtures(service)}
+                service={service}
+              />
+            </BrowserRouter>
+          </RequestContextProvider>
+        </ServiceContextProvider>
+      </ToggleContextProvider>
+    );
+  });

@@ -47,6 +47,7 @@ export const service = {
     manifestPath: '/articles/manifest.json',
     swPath: '/articles/sw.js',
     frontPageTitle: 'Dachaigh',
+    hasRadioSchedule: false,
     theming: {
       brandBackgroundColour: `${C_POSTBOX}`,
       brandLogoColour: `${C_WHITE}`,
@@ -149,6 +150,12 @@ export const service = {
         audio: 'Fuaim',
         photogallery: 'Gailearaidh dhealbhan',
         video: 'Bhidio',
+        listen: 'Listen',
+        watch: 'Watch',
+        liveLabel: 'LIVE',
+        previousRadioShow: 'Previous radio show',
+        nextRadioShow: 'Next radio show',
+        duration: 'Duration',
       },
     },
     brandSVG,
@@ -167,10 +174,6 @@ export const service = {
           'Leugh mun fheallsanachd againn mu cheangaileachan dhan taobh a-muigh',
       },
       links: [
-        {
-          href: 'https://www.bbc.com/news/help-41670342',
-          text: 'Carson as urrainear earbsa a chur sa BhBC',
-        },
         {
           href: 'https://www.bbc.com/terms',
           text: 'Teirmean Cleachdaidh',
@@ -214,6 +217,7 @@ export const service = {
         url: '/news/scotland',
       },
     ],
+    navigationSection: 'Earrannan',
   },
 };
 

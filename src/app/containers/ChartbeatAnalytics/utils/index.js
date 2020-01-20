@@ -68,6 +68,7 @@ export const getTitle = (pageType, pageData, brandName) => {
 };
 
 export const getConfig = ({
+  isAmp,
   platform,
   pageType,
   data,
@@ -83,19 +84,18 @@ export const getConfig = ({
   const sections = buildSections(service, pageType);
   const cookie = getSylphidCookie();
   const type = getType(pageType);
-  const isAmp = platform === 'amp';
   const currentPath = onClient() && window.location.pathname;
   return {
     domain,
     sections,
     uid: chartbeatUID,
     title,
-    ...(isAmp && { contentType: type, virtualReferrer: referrer }),
+    virtualReferrer: referrer,
+    ...(isAmp && { contentType: type }),
     ...(!isAmp && {
       type,
       useCanonical,
       path: currentPath,
-      virtualReferrer: `${origin}/referrer`,
     }),
     ...(cookie && { idSync: { bbc_hid: cookie } }),
   };

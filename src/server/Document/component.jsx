@@ -2,6 +2,10 @@ import React from 'react';
 import {
   AMP_SCRIPT,
   AMP_NO_SCRIPT,
+  AMP_JS,
+  AMP_GEO_JS,
+  AMP_CONSENT_JS,
+  AMP_ANALYTICS_JS,
 } from '@bbc/psammead-assets/amp-boilerplate';
 import ResourceHints from '#app/components/ResourceHints';
 import IfAboveIE9 from '#app/components/IfAboveIE9Comment';
@@ -23,6 +27,9 @@ const Document = ({
   const headScript = helmet.script.toComponent();
   const serialisedData = JSON.stringify(data);
   const scriptsAllowed = !isAmp;
+
+  // The JS to remove the no-js class will not run on AMP, therefore only add it to canonical
+  const noJsHtmlAttrs = !isAmp && { className: 'no-js' };
   const scriptTags = (
     <>
       <IfAboveIE9>{scripts}</IfAboveIE9>
@@ -30,7 +37,7 @@ const Document = ({
   );
 
   return (
-    <html lang="en-GB" {...htmlAttrs}>
+    <html lang="en-GB" {...noJsHtmlAttrs} {...htmlAttrs}>
       <head>
         {meta}
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -49,22 +56,10 @@ const Document = ({
         )}
         {isAmp && (
           <>
-            <script key="amp" async src="https://cdn.ampproject.org/v0.js" />
-            <script
-              async
-              custom-element="amp-geo"
-              src="https://cdn.ampproject.org/v0/amp-geo-0.1.js"
-            />
-            <script
-              async
-              custom-element="amp-consent"
-              src="https://cdn.ampproject.org/v0/amp-consent-0.1.js"
-            />
-            <script
-              async
-              custom-element="amp-analytics"
-              src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"
-            />
+            {AMP_JS}
+            {AMP_GEO_JS}
+            {AMP_CONSENT_JS}
+            {AMP_ANALYTICS_JS}
           </>
         )}
       </head>
@@ -81,6 +76,18 @@ const Document = ({
           />
         )}
         {scriptsAllowed && scriptTags}
+        {scriptsAllowed && (
+          <script
+            type="text/javascript"
+            // Justification:
+            // - we need this to be a blocking script that runs before the page first renders
+            // - the content is static text so there is no real XSS risk
+            /* eslint-disable-next-line react/no-danger */
+            dangerouslySetInnerHTML={{
+              __html: `document.documentElement.classList.remove("no-js");`,
+            }}
+          />
+        )}
       </body>
     </html>
   );

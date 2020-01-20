@@ -38,6 +38,7 @@ export const service = {
     manifestPath: '/manifest.json',
     swPath: '/sw.js',
     frontPageTitle: 'Swahili',
+    hasRadioSchedule: false,
     theming: {
       brandBackgroundColour: `${C_POSTBOX}`,
       brandLogoColour: `${C_WHITE}`,
@@ -147,6 +148,12 @@ export const service = {
           subtitle:
             'Mitikasi Leo ina taarifa za biashara, uchambuzi na maoni ya wataalam wa 100bora kila siku.',
         },
+        listen: 'Listen',
+        watch: 'Watch',
+        liveLabel: 'Moja kwa moja',
+        previousRadioShow: 'Previous radio show',
+        nextRadioShow: 'Next radio show',
+        duration: 'Duration',
       },
     },
     brandSVG,
@@ -164,10 +171,6 @@ export const service = {
         text: 'Soma kuhusu mtazamo wetu wa viambatanishi vya nje.',
       },
       links: [
-        {
-          href: 'https://www.bbc.com/news/help-41670342',
-          text: 'Kwanini unaweza kuiamini BBC News',
-        },
         {
           href:
             'https://www.bbc.com/swahili/taasisi/2011/10/000001_terms_of_use',
@@ -220,6 +223,7 @@ export const service = {
         url: '/swahili/media/photogalleries',
       },
     ],
+    navigationSection: 'Yaliyomo',
   },
 };
 

@@ -38,6 +38,7 @@ export const service = {
     manifestPath: '/manifest.json',
     swPath: '/sw.js',
     frontPageTitle: "Urupapuro rw'itangiriro",
+    hasRadioSchedule: true,
     theming: {
       brandBackgroundColour: `${C_POSTBOX}`,
       brandLogoColour: `${C_WHITE}`,
@@ -142,6 +143,12 @@ export const service = {
           subtitle:
             'Amakuru y’amahanga, ubusesenguzi, amakuru y’akarere k’ibiyaga bigari, ikinamico, ubuzima, imibereho y’abagore. Kuri FM no kuri internet.',
         },
+        listen: 'Listen',
+        watch: 'Watch',
+        liveLabel: 'LIVE',
+        previousRadioShow: 'Previous radio show',
+        nextRadioShow: 'Next radio show',
+        duration: 'Duration',
       },
     },
     brandSVG,
@@ -151,7 +158,7 @@ export const service = {
     },
     footer: {
       trustProjectLink: {
-        href: 'https://www.bbc.com/gahuza/institutional-49283343',
+        href: 'https://www.bbc.com/news/help-41670342',
         text: 'Igituma ushobora kwizera BBC News',
       },
       externalLink: {
@@ -159,10 +166,6 @@ export const service = {
         text: "Soma ibijanye n'aho duhagaze ku mihora ijana ahandi",
       },
       links: [
-        {
-          href: 'https://www.bbc.com/gahuza/institutional-49283343',
-          text: 'Igituma ushobora kwizera BBC News',
-        },
         {
           href: 'https://www.bbc.com/gahuza/institutional-35754053',
           text: 'Ingingo zo gukoresha urubuga',
@@ -210,6 +213,7 @@ export const service = {
         url: '/gahuza/media/video',
       },
     ],
+    navigationSection: 'Imice',
   },
 };
 

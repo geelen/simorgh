@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { GEL_SPACING_QUAD } from '@bbc/gel-foundations/spacings';
 import { string } from 'prop-types';
@@ -9,7 +10,7 @@ import {
 import { pathOr } from 'ramda';
 import { RequestContext } from '#contexts/RequestContext';
 import { ServiceContext } from '#contexts/ServiceContext';
-import embedUrl from '../../../MediaPlayer/helpers/embedUrl';
+import getEmbedUrl from '#lib/utilities/getEmbedUrl';
 
 const staticAssetsPath = `${process.env.SIMORGH_PUBLIC_STATIC_ASSETS_ORIGIN}${process.env.SIMORGH_PUBLIC_STATIC_ASSETS_PATH}`;
 
@@ -29,17 +30,12 @@ const MediaPlayerInnerWrapper = styled.div`
 `;
 
 const LiveRadioContainer = ({ idAttr, externalId, id }) => {
-  const { platform, origin } = useContext(RequestContext);
-  const { liveRadio, lang, translations } = useContext(ServiceContext);
+  const { isAmp, platform } = useContext(RequestContext);
+  const { liveRadio, lang, translations, service } = useContext(ServiceContext);
+  const location = useLocation();
+  const isValidPlatform = ['amp', 'canonical'].includes(platform);
 
-  const isAmp = platform === 'amp';
-
-  const MediaPlayer = {
-    canonical: CanonicalMediaPlayer,
-    amp: AmpMediaPlayer,
-  }[platform];
-
-  if (!MediaPlayer || !externalId || !id) return null;
+  if (!isValidPlatform || !externalId || !id) return null;
 
   const serviceId = pathOr(
     externalId,
@@ -47,28 +43,50 @@ const LiveRadioContainer = ({ idAttr, externalId, id }) => {
     liveRadio,
   );
 
-  const embedSource = embedUrl({
-    requestUrl: `${serviceId}/${id}/${lang}`,
+  const embedSource = getEmbedUrl({
+    mediaId: `${serviceId}/${id}/${lang}`,
     type: 'media',
     isAmp,
-    origin,
+    queryString: location.search,
   });
+
+  const iframeTitle = pathOr(
+    'Media player',
+    ['mediaAssetPage', 'audioPlayer'],
+    translations,
+  );
+
+  const mediaInfo = {
+    title: 'Live radio',
+    type: 'audio',
+  };
+
+  const noJsMessage = `This ${mediaInfo.type} cannot play in your browser. Please enable Javascript or try a different browser.`;
 
   return (
     <MediaPlayerOuterWrapper>
       <MediaPlayerInnerWrapper>
-        <MediaPlayer
-          placeholderSrc={isAmp ? liveRadioPlaceholderImageSrc : null}
-          showPlaceholder={!isAmp ? false : null}
-          src={embedSource}
-          title={pathOr(
-            'Media player',
-            ['mediaAssetPage', 'audioPlayer'],
-            translations,
-          )}
-          id={idAttr}
-          skin="audio"
-        />
+        {isAmp ? (
+          <AmpMediaPlayer
+            placeholderSrc={liveRadioPlaceholderImageSrc}
+            src={embedSource}
+            title={iframeTitle}
+            id={idAttr}
+            skin="audio"
+          />
+        ) : (
+          <CanonicalMediaPlayer
+            showPlaceholder={false}
+            src={embedSource}
+            title={iframeTitle}
+            id={idAttr}
+            skin="audio"
+            service={service}
+            mediaInfo={mediaInfo}
+            noJsMessage={noJsMessage}
+            noJsClassName="no-js"
+          />
+        )}
       </MediaPlayerInnerWrapper>
     </MediaPlayerOuterWrapper>
   );
