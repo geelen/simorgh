@@ -1,0 +1,9 @@
+{
+  plugins: {
+    '@fab/input-static': {
+      dir: 'build/public', // Read files from this directory
+    },
+    '@fab/serve-html': {},
+    '@fab/rewire-assets': {},
+  }
+}
