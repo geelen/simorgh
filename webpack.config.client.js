@@ -48,8 +48,8 @@ module.exports = ({ resolvePath, IS_CI, IS_PROD, START_DEV_SERVER }) => {
        * https://github.com/jaredpalmer/razzle/tree/master/packages/create-razzle-app/templates/default#how-razzle-works-the-secret-sauce
        */
       filename: START_DEV_SERVER
-        ? 'static/js/[name].js'
-        : 'static/js/[name].[chunkhash:8].js', // hash based on the contents of the file
+        ? '_assets/js/[name].js'
+        : '_assets/js/[name].[chunkhash:8].js', // hash based on the contents of the file
       // need full URL for dev server & HMR: https://github.com/webpack/docs/wiki/webpack-dev-server#combining-with-an-existing-server
       publicPath: START_DEV_SERVER
         ? `http://localhost:${webpackDevServerPort}/`

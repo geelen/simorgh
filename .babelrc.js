@@ -1,8 +1,11 @@
+const { FAB_BUILD } = process.env;
+
 var plugins = [
   '@babel/plugin-proposal-object-rest-spread', // allows ...spread notation
   '@babel/plugin-syntax-dynamic-import', // allows `await import()` syntax
-  '@babel/plugin-transform-runtime',
-  '@loadable/babel-plugin',
+  ...(FAB_BUILD
+    ? []
+    : ['@babel/plugin-transform-runtime', '@loadable/babel-plugin']),
   [
     'babel-plugin-styled-components',
     {
@@ -35,7 +38,7 @@ module.exports = {
       '@babel/preset-env',
       {
         targets: {
-          browsers: [
+          browsers: FAB_BUILD ? [] : [
             'chrome >= 53',
             'firefox >= 45.0',
             'ie >= 11',

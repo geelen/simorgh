@@ -2,28 +2,37 @@
 const nodeExternals = require('webpack-node-externals');
 const webpack = require('webpack');
 
+const { FAB_BUILD } = process.env;
+
 module.exports = ({ resolvePath, START_DEV_SERVER }) => {
   const serverConfig = {
     target: 'node', // compile for server environment
-    entry: START_DEV_SERVER ? ['webpack/hot/poll?100', './src'] : ['./src'],
+    entry: FAB_BUILD
+      ? ['./src/server/fab-server.js']
+      : START_DEV_SERVER
+      ? ['webpack/hot/poll?100', './src']
+      : ['./src'],
     devtool: false,
     output: {
       path: resolvePath('build'),
-      filename: 'server.js',
+      filename: FAB_BUILD ? 'fab-server.js' : 'server.js',
+      libraryTarget: FAB_BUILD ? 'commonjs2' : undefined,
     },
     optimization: {
       minimize: false,
     },
-    externals: [
-      /**
-       * Prevents `node_modules` from being bundled into the server.js
-       * And therefore stops `node_modules` being watched for file changes
-       */
-      nodeExternals({
-        whitelist: ['webpack/hot/poll?100'],
-      }),
-    ],
-    watch: true,
+    externals: FAB_BUILD
+      ? []
+      : [
+          /**
+           * Prevents `node_modules` from being bundled into the server.js
+           * And therefore stops `node_modules` being watched for file changes
+           */
+          nodeExternals({
+            whitelist: ['webpack/hot/poll?100'],
+          }),
+        ],
+    watch: !FAB_BUILD,
     node: {
       /**
        * Override webpacks default handling of __dirname
