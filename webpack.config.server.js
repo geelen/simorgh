@@ -16,20 +16,22 @@ module.exports = ({ resolvePath, START_DEV_SERVER }) => {
     output: {
       path: resolvePath('build'),
       filename: FAB_BUILD ? 'fab-server.js' : 'server.js',
-      libraryTarget: FAB_BUILD ? 'commonjs2' : undefined
+      libraryTarget: FAB_BUILD ? 'commonjs2' : undefined,
     },
     optimization: {
       minimize: false,
     },
-    externals: [
-      /**
-       * Prevents `node_modules` from being bundled into the server.js
-       * And therefore stops `node_modules` being watched for file changes
-       */
-      nodeExternals({
-        whitelist: ['webpack/hot/poll?100'],
-      }),
-    ],
+    externals: FAB_BUILD
+      ? []
+      : [
+          /**
+           * Prevents `node_modules` from being bundled into the server.js
+           * And therefore stops `node_modules` being watched for file changes
+           */
+          nodeExternals({
+            whitelist: ['webpack/hot/poll?100'],
+          }),
+        ],
     watch: !FAB_BUILD,
     node: {
       /**
